@@ -1,0 +1,1900 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>もふもふの館 - 初心者の効率育成日記</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/639838432021184534/80115562a341453add7012c1f20bcb6d.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">もふもふの館</div>
+        <div class="preamble__entry">もふ立図書館 / 初心者の効率育成日記</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 11:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="696906872510480460" id="message-696906872510480460" title="Message sent: 07-Apr-20 11:19 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">2020/04/07のデータでです
+実際に俺がアカウントを作ってポイントをメモしながら装備チェンジが使えるようになる総合値17万まで育成します</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696907101263626322" id="message-696907101263626322" title="Message sent: 07-Apr-20 11:20 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">コンセプトとしては
+・運に頼らない
+・極力周回しない
+・イベなどはなるべくなくても攻略できるようにする
+でいきます。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="696907308512575499" id="message-696907308512575499" title="Message sent: 07-Apr-20 11:20 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">【1章】総合値1000～</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 11:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="696907359351472148" id="message-696907359351472148" title="Message sent: 07-Apr-20 11:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696907631180382231" id="message-696907631180382231" title="Message sent: 07-Apr-20 11:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">初期選択キャラは何でも良いけどストーリーに合わせてキャラ変更面倒だと思うからアリスおすすめ
+理由：アリスじゃないとナイトメア派遣衝動編が解禁されないため</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 11:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="696910699112169593" id="message-696910699112169593" title="Message sent: 07-Apr-20 11:34 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/696910698319577139/Screenshot_2020-04-07-10-30-12.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/696910698319577139/Screenshot_2020-04-07-10-30-12.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-10-30-12.png (1.32 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696911942081839106" id="message-696911942081839106" title="Message sent: 07-Apr-20 11:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">で、開幕に配られる石の数が、
+事前登録50万人記念で250個
+事前登録特典(全員)で210個
+スタートダッシュボーナス30個
+アリス1-1クリアしてればキャラかぶりで10個
+
+これで500貯まるのでメニュー→ショップ→アイテム購入から前衛スターターパックを買いましょう
+理由：ストーリー消化を手早くすすめるため</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Apr-20 12:30 PM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/696911942157205514/Screenshot_2020-04-07-09-46-07.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/696911942157205514/Screenshot_2020-04-07-09-46-07.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-09-46-07.png (973.47 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696912269216448512" id="message-696912269216448512" title="Message sent: 07-Apr-20 11:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">スターターパックは経験者からは武器が弱いという評判ですがそれでもガチャ運に関係なくL武器に進化する武器が20本とガチャメア5体は破格だと思います。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696912886089646111" id="message-696912886089646111" title="Message sent: 07-Apr-20 11:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">プレゼントからスターターパックで買った武器を受け取って装備しましょう
+あとから撮影したので少し総合値が増えてますが大体13000くらいになるはずです</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/696912885854765106/Screenshot_2020-04-07-11-39-37.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/696912885854765106/Screenshot_2020-04-07-11-39-37.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-11-39-37.png (1.37 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696913049855983656" id="message-696913049855983656" title="Message sent: 07-Apr-20 11:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">そしてストーリーをギルド開放の2-10まで進めてしまいましょう。この総合値なら十分行けるはずです。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696913111558389832" id="message-696913111558389832" title="Message sent: 07-Apr-20 11:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(もふもふに入るってことはここまでは終わってると思うんだけど)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696913548428705884" id="message-696913548428705884" title="Message sent: 07-Apr-20 11:45 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">そこまで来たら初心者ナビに従って強化、共闘などまだ終わっていないところを片付けていきましょう。
+後半はコロシアム参加コロシアム勝利などがあるのでやや日数を要する場合があります。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696914124696977408" id="message-696914124696977408" title="Message sent: 07-Apr-20 11:47 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆寄り道その1
+石の使いみちですが450溜まったら初心者向けステップガチャを引いて、入手したジョブのアルカナを初心者メダルで交換することをおすすめします。
+序盤では恩恵を感じにくいですが中盤以降生きてきます(20万超えたあたり)</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/696914123207999518/Screenshot_2020-04-07-11-12-00.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/696914123207999518/Screenshot_2020-04-07-11-12-00.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-11-12-00.png (1.81 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696914729221750837" id="message-696914729221750837" title="Message sent: 07-Apr-20 11:50 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆寄り道その2
+1-10クリアでイベントが解禁されますが教えロ！ギシアン先生をクリアしておくと良いです。
+チュートリアルですが石や武器ももらえます。
+総合値はガチャ武器と比べると低めですが4凸出来るので十分使えます。</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/696914729075212308/Screenshot_2020-04-07-11-41-00.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/696914729075212308/Screenshot_2020-04-07-11-41-00.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-11-41-00.png (1.54 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696915195842396241" id="message-696915195842396241" title="Message sent: 07-Apr-20 11:52 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">初心者ナビで入手できる無限の歯車の鍵ですがお掃除無制限が解除されるランク120以降に使用することをおすすめします。
+大事に取っておきましょう</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/696915195641069668/Screenshot_2020-04-07-11-11-24.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/696915195641069668/Screenshot_2020-04-07-11-11-24.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-11-11-24.png (1.31 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 12:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="696924580912037929" id="message-696924580912037929" title="Message sent: 07-Apr-20 12:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆寄り道その3
+外部サイト類は開いて戻るだけで報酬もらえます</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/696924580950048849/Screenshot_2020-04-07-11-05-29.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/696924580950048849/Screenshot_2020-04-07-11-05-29.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-11-05-29.png (1.28 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 07:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="697033330268569720" id="message-697033330268569720" title="Message sent: 07-Apr-20 07:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">アリス現実篇獲得するためにオソウジ30回必要になりますが、なるべくランクアップのスタミナもちゃんと使いたいって人はオソウジ無制限のうちに0匹で30秒放置を30回繰り返しておくと気持ちが楽になります(注:まじで苦行)</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Apr-20 07:43 PM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697033329517789194/Screenshot_2020-04-07-19-38-38.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697033329517789194/Screenshot_2020-04-07-19-38-38.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-19-38-38.png (1.32 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697033521180442655" id="message-697033521180442655" title="Message sent: 07-Apr-20 07:42 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">まあわざとランク上げ無いのはほんとに効率ガッツリ重視する人だけで良いと思います
+ランク上げると装備のコスト上限とHPが上がるので基本はどんどん上げたいです</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697034832487907339" id="message-697034832487907339" title="Message sent: 07-Apr-20 07:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ガチャのハズレ武器ですが、主な使いみちとしては2種類ありまして、1つ目は高レア武器に食べさせてスキルレベルを上げる、2つ目はは限界突破ミッションに使うとなってますが序盤のおすすめは限界突破ミッションです
+理由:スキルレベルを上げるのは自分がやりたいジョブが決まってからのほうがいいから</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697034831544188968/Screenshot_2020-04-07-19-45-18.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697034831544188968/Screenshot_2020-04-07-19-45-18.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-19-45-18.png (1.62 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697035252794785853" id="message-697035252794785853" title="Message sent: 07-Apr-20 07:49 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">欠点としては限界突破ということはつまり2個以上手に入れたときに初めて凸できるわけなので手持ちが圧迫されることです。最序盤はガチャに石使いたいと思うので所持数広げるのに石使いたくないだろうしその辺は本人次第ですね</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 08:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="697050967815880733" id="message-697050967815880733" title="Message sent: 07-Apr-20 08:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">5凸目以降はこうやるとまだ回数増やせます</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697050967325016074/Screenshot_2020-04-07-20-50-42.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697050967325016074/Screenshot_2020-04-07-20-50-42.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-20-50-42.png (1.28 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="697058667647729694" id="message-697058667647729694" title="Message sent: 07-Apr-20 09:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">初心者ガチャのアルカナでジョブ限界突破、ギシアン先生、武器限界突破ミッションなどを駆使することによりストーリーこのくらいで初心者ガチャ前半を引ききることが出来ました</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697058667039817788/Screenshot_2020-04-07-21-20-41.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697058667039817788/Screenshot_2020-04-07-21-20-41.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-21-20-41.png (1.58 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697058673654235206" id="message-697058673654235206" title="Message sent: 07-Apr-20 09:22 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697058673280679976/Screenshot_2020-04-07-21-20-55.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697058673280679976/Screenshot_2020-04-07-21-20-55.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-21-20-55.png (1.37 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697059383707828226" id="message-697059383707828226" title="Message sent: 07-Apr-20 09:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">さてここらでジョブ強化をしたいと思います
+まずこれまで手に入れたジョブ熟練度の書を使って熟練度を貰います
+・・・しょｂ</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697059383565221908/Screenshot_2020-04-07-21-24-57.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697059383565221908/Screenshot_2020-04-07-21-24-57.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-21-24-57.png (1.35 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697059935090901042" id="message-697059935090901042" title="Message sent: 07-Apr-20 09:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ジョブ強化のときのポイントですが、共通となっているものは基礎能力に加算されます。ここを目安にしてあげていくといいでしょう
+そしてもう一つは効率ですがジョブ強化は全キャラを均等に上げるほうが効率がいいです。一人を10まで上げるよりも全キャラを4などにしたほうが伸びます</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697059934533320705/Screenshot_2020-04-07-21-25-55.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697059934533320705/Screenshot_2020-04-07-21-25-55.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-21-25-55.png (1.38 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697061284482383932" id="message-697061284482383932" title="Message sent: 07-Apr-20 09:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ジョブ熟練度を均等に上げましてーさて現在の総合値が</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697061284046176326/Screenshot_2020-04-07-21-31-36.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697061284046176326/Screenshot_2020-04-07-21-31-36.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-21-31-36.png (1.72 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697061312148013137" id="message-697061312148013137" title="Message sent: 07-Apr-20 09:32 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697061311858737172/Screenshot_2020-04-07-21-32-19.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697061311858737172/Screenshot_2020-04-07-21-32-19.png" alt="Image attachment" title="Image: Screenshot_2020-04-07-21-32-19.png (1.48 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697061956930109550" id="message-697061956930109550" title="Message sent: 07-Apr-20 09:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ここからは進めて強化しての繰り返しになっていきますが、主な作業は以下のようになります
+1.メイン武器をL染めする
+→強化ゲリラ剣
+2.メイン防具をSS(L行けそうか要検証)染めする
+→防具イベント、強化ゲリラ盾
+3.ナイトメア強化
+→ナイトメア派遣
+これらを繰り返してるとランクが上がってコスト上限も上がり、装備できる武器の数も増えていきます</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697062027973099620" id="message-697062027973099620" title="Message sent: 07-Apr-20 09:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">おそらくL20本積める頃には17万達成していることでしょう</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697062169883312218" id="message-697062169883312218" title="Message sent: 07-Apr-20 09:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">というわけで実際にやりますが多分新しい知識は減ります</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697063423623692319" id="message-697063423623692319" title="Message sent: 07-Apr-20 09:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆豆知識コーナー1
+オソウジで敵一匹倒したときに回復するAPの量はランクが上がると増えていくのでランクを上げれば上げるほど周回に使える時間が増えていく
+このためゲリラ周回では高ランクにしてから周回する方が効率いいかも</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Apr-20 09:41 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">07-Apr-20 09:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="697066037035663361" id="message-697066037035663361" title="Message sent: 07-Apr-20 09:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆今後の更新予定と略式回答
+初心者ガチャを引き終わったあとの石の使い道(各ガチャの特性の違い、アイテム購入でジョブ買えるとか)
+ヨクボウメダルの使いみち(大体アルカナかキャラ書)
+課金するならどれがおすすめ？(ロイヤル、ナイトメア、石2倍)
+キャラ強化とハーフナイトメアについて(大分後かも)</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Apr-20 09:55 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697066720560545864" id="message-697066720560545864" title="Message sent: 07-Apr-20 09:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆今後の更新予定(プチコーナー)
+・共闘設定の指定フレのみを使いこなすと便利な話</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-20 01:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="697306506462232716" id="message-697306506462232716" title="Message sent: 08-Apr-20 01:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">経過報告
+ミッションでもらえる進化素材と強化素材だいたい取りきった状態がこんな感じ
+これ以上は多分流石に曜日とゲリラ周回必要になってきますね</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697306505900458014/Screenshot_2020-04-08-13-45-32.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697306505900458014/Screenshot_2020-04-08-13-45-32.png" alt="Image attachment" title="Image: Screenshot_2020-04-08-13-45-32.png (1.5 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697306782502092860" id="message-697306782502092860" title="Message sent: 08-Apr-20 01:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">というわけでここからは周回解禁して強化に励みます
+石は衝動編1～4章全キャラ終了でこのくらいです
+初心者ガチャ前後編全部回す目安がこのくらいと考えていいと思います</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697307350918496267" id="message-697307350918496267" title="Message sent: 08-Apr-20 01:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">俺はサブ垢なので操作めんどいということであんまり共闘しませんが、出来るなら初クリア以降は共闘で他の人のに入るほうがミッション報酬もらえるのでやや美味しいです</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-20 02:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="697313006761017374" id="message-697313006761017374" title="Message sent: 08-Apr-20 02:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆プチ報告
+5万だと曜日上級安定しません　先にSSレベル60目指したほうが多分いいです</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-20 02:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="697324295990280233" id="message-697324295990280233" title="Message sent: 08-Apr-20 02:57 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">◆プチ報告
+今でも序盤はめちゃくちゃ武器ゲリラ回ることになるのでゴーストに通りがいい刀剣と打撃を優先して強化するのがおすすめです
+コロシアム用の装備は素材余ってから育成するくらいでもいいと思います</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-20 03:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="697327915033034823" id="message-697327915033034823" title="Message sent: 08-Apr-20 03:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">5章の目標にはあの悪名高きナイトメアを1回使ってクリアが有るので注意しましょう</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/697327914697490432/Screenshot_2020-04-08-15-11-00.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/697327914697490432/Screenshot_2020-04-08-15-11-00.png" alt="Image attachment" title="Image: Screenshot_2020-04-08-15-11-00.png (1.44 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-20 06:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="697378428512370779" id="message-697378428512370779" title="Message sent: 08-Apr-20 06:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">初心者ガチャが終わった後の石の使い道ですが、正直序盤はガチャ引いてもあんまり強くなりません
+ジョブレベルも追いついてないだろうし、Lレベル80が量産できない段階では今ある武器を育てたほうが強いです
+では素材に石を使うほうがいいかというとそういうわけではないので、とりあえず好きなキャラが居るとかじゃなきゃ貯めといたほうが後々いいかなーと思われます</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="697378742133194773" id="message-697378742133194773" title="Message sent: 08-Apr-20 06:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">後々の投資を考えるならSS確定ガチャであったり、アイテム購入でジョブやアルカナが手に入るセットは買っておくと古参との差が埋まっていい感じだと思います</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">13-Apr-20 07:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="699200476515926087" id="message-699200476515926087" title="Message sent: 13-Apr-20 07:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">育成飽きましたなう←</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">01-May-20 07:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="705735167934726185" id="message-705735167934726185" title="Message sent: 01-May-20 07:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">全く武器進化が進みませんし、比較的うまいとされるメダルイベはEXまで行けないととても効率的とは言えず、かなり厳しい状態です
+無間の歯車即使っちゃってもいいかもですね
+使うときは経験値、ゴールド、ドロップの倍加アイテム使うか、もしくは持ってれば3倍の全増加の加護を必ず使ってから使いましょう</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="705735277036961832" id="message-705735277036961832" title="Message sent: 01-May-20 08:00 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">無限の歯車もっと初心者のステップアップのために配ってくれると思ってたのになあ・・・</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="705737001961521203" id="message-705737001961521203" title="Message sent: 01-May-20 08:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">というわけで指定フレを使いこなそうのコーナーです
+フォローした人は共闘設定の指定したフレンドのみから固定メンバーにすることができます。
+総合値こそ自分の総合値に合わせられますがスキルレベルが高く属性などがイベント向けになっていることが多いので序盤の難易度が大きく下がるはずです</span>
+
+                                <span class="chatlog__edited-timestamp" title="01-May-20 08:08 PM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/705737001646817340/Screenshot_2020-05-01-20-05-07.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/705737001646817340/Screenshot_2020-05-01-20-05-07.png" alt="Image attachment" title="Image: Screenshot_2020-05-01-20-05-07.png (1.34 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="705737092877254777" id="message-705737092877254777" title="Message sent: 01-May-20 08:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">サブ垢なので相手の貴重なフォロワー枠使いたくないので最後の手段にしてました</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="705737526970941480" id="message-705737526970941480" title="Message sent: 01-May-20 08:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">あと指定フレの強いところは前衛5編成にできることですね
+シノアリスのモノガタリは基本的にやられるまえにやれの精神なので前衛増やしたほうが強い事が多いです</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="705738403056058422" id="message-705738403056058422" title="Message sent: 01-May-20 08:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">このように余裕でクリアできるわけです</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/705738402598748170/Screenshot_2020-05-01-20-12-03.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/705738402598748170/Screenshot_2020-05-01-20-12-03.png" alt="Image attachment" title="Image: Screenshot_2020-05-01-20-12-03.png (935.48 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="705738540054478941" id="message-705738540054478941" title="Message sent: 01-May-20 08:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">コミュ力ある人はどんどん上級者に手伝ってもらって、最終ステージ解放して、共闘から強い人についていくのが確実に楽だと思います。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="705738927981592627" id="message-705738927981592627" title="Message sent: 01-May-20 08:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ボケましたがなんだかんだH7、8初クリアできたので指定フレおすすめですよ</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">05-May-20 10:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="707224596704788481" id="message-707224596704788481" title="Message sent: 05-May-20 10:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">やべえジョブ強化が終わった伸びしろが1万ちょいしかねえ</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/707224596524302336/Screenshot_2020-05-05-22-37-37.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/707224596524302336/Screenshot_2020-05-05-22-37-37.png" alt="Image attachment" title="Image: Screenshot_2020-05-05-22-37-37.png (1.46 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">05-May-20 10:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="707226900799684608" id="message-707226900799684608" title="Message sent: 05-May-20 10:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">厳密には武器3枠でざっくり5000&#215;3で15000、防具2部位処女なのでSS防具にすれば6000くらい、メアL80に出来れば2000&#215;5で1万くらい、16万台までは伸びそう
+初心者って辛いなぁ…</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="707227183713878087" id="message-707227183713878087" title="Message sent: 05-May-20 10:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">スキルとかEX回れるようになってからでもいいと思う
+とりあえずは進化素材と強化素材が大事</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">25-May-20 01:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="714155730025971722" id="message-714155730025971722" title="Message sent: 25-May-20 01:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">確定ガチャ4周でジョブ4つゲットしつつあるかな3つ交換
+15万突破しました
+武器限凸でめっちゃ時間取られて寝るタイミング逃した感</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">26-May-20 11:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="714663271172407337" id="message-714663271172407337" title="Message sent: 26-May-20 11:16 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">コスト足りない人は各キャラのバランスを真下に掘り進むと良いです
+素材それなりに高く付きますが一人に付きコスト2上がります</span>
+
+                                <span class="chatlog__edited-timestamp" title="26-May-20 11:16 AM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/714663270761496576/Screenshot_2020-05-26-11-14-25.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/714663270761496576/Screenshot_2020-05-26-11-14-25.png" alt="Image attachment" title="Image: Screenshot_2020-05-26-11-14-25.png (1.5 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="714663274565730345" id="message-714663274565730345" title="Message sent: 26-May-20 11:16 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/714663274322591784/Screenshot_2020-05-26-11-14-32.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/714663274322591784/Screenshot_2020-05-26-11-14-32.png" alt="Image attachment" title="Image: Screenshot_2020-05-26-11-14-32.png (1.05 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">27-May-20 08:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="715168816904011777" id="message-715168816904011777" title="Message sent: 27-May-20 08:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ゲームクリアしました</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/696906384884760657/715168816186916864/Screenshot_2020-05-27-20-44-27.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/696906384884760657/715168816186916864/Screenshot_2020-05-27-20-44-27.png" alt="Image attachment" title="Image: Screenshot_2020-05-27-20-44-27.png (1.27 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/409149638352830464/159715aa8ecae6d3f3739698468ec0ff.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="しざくら#3241" data-user-id="409149638352830464" style="color: rgb(255,255,255)">しざくら</span>
+
+
+        <span class="chatlog__timestamp">29-May-20 02:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="715802253226803291" id="message-715802253226803291" title="Message sent: 29-May-20 02:42 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">なんかとりあえずよくわからんと思うけど、所々でここはこうすると楽だよみたいなのは書いてあるからまあ参考に出来ればしてみてくれー</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 58 message(s)</div>
+</div>
+
+</body>
+
+</html>
